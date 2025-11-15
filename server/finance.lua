@@ -16,9 +16,6 @@ local function addPlayerToFinanceTimer(src, citizenid)
     citizenid = citizenid or exports.qbx_core:GetPlayer(src).PlayerData.citizenid
 
     local hasFinanced = financeStorage.hasFinancedVehicles(citizenid)
-    if hasFinanced then
-        exports.qbx_core:Notify(src, locale('general.paymentduein', config.finance.paymentWarning))
-    end
 
     financeTimer[src] = {
         citizenid = citizenid,
