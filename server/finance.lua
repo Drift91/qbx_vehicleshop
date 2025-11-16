@@ -79,12 +79,14 @@ local function checkFinancedVehicles(src)
             end
             exports.qbx_core:Notify(src, locale('error.repossessed', v.plate), 'error')
         elseif timeLeft <= config.finance.paymentWarning then
-            paymentReminder = true
+            if not paymentReminder or timeLeft < paymentReminder then
+                paymentReminder = timeLeft
+            end
         end
     end
 
     if paymentReminder then
-        exports.qbx_core:Notify(src, locale('general.paymentduein', config.finance.paymentWarning))
+        exports.qbx_core:Notify(src, locale('general.paymentduein', math.floor(paymentReminder)))
     end
 end
 
